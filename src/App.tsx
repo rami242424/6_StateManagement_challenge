@@ -68,7 +68,6 @@ a {
 `;
 
 function App() {
- 
   return (
     <>
       <GlobalStyle />

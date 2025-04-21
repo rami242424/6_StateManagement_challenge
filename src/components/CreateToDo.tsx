@@ -6,9 +6,6 @@ interface IForm {
     toDo : string;
 }
 
-
-
-
 function CreateToDo(){
     const {register, handleSubmit, setValue} = useForm<IForm>();
     const setToDos = useSetRecoilState(toDoState);

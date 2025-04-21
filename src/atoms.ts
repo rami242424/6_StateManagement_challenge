@@ -1,8 +1,5 @@
 import { atom, selector } from "recoil";
 
-//before i know <enum>
-//export type AllCategories = "TO_DO" | "DOING" | "DONE";
-
 export enum AllCategories {
     "TO_DO" =  "TO_DO",
     "DOING" = "DOING" ,
@@ -20,7 +17,6 @@ export const categoryState = atom<AllCategories>({
     default: AllCategories.TO_DO,
 })
 
-
 export const toDoState = atom<IToDo[]>({
     key: "TODO",
     default: [],
@@ -29,25 +25,8 @@ export const toDoState = atom<IToDo[]>({
 export const toDoSelector = selector({
     key: "toDoSelector",
     get: ({get}) => {
-        const toDoss = get(toDoState); // list 전체 내용
+        const toDoss = get(toDoState);
         const catss = get(categoryState);
-
-        // 방법1
-        /* if( catss === "TO_DO") return toDoss.filter((todo) => todo.category === "TO_DO");
-        if( catss === "DOING") return toDoss.filter((todo) => todo.category === "DOING");
-        if( catss === "DONE") return toDoss.filter((todo) => todo.category === "DONE") */
-
-        // 방법2
         return toDoss.filter((list) => list.category === catss);
-
-
-
-        // return [
-        //     toDoss.filter((todo) => todo.category === "TO_DO"),
-        //     toDoss.filter((todo) => todo.category === "DOING"),
-        //     toDoss.filter((todo) => todo.category === "DONE")
-        // ]
-
-
     }
 })
