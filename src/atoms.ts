@@ -1,18 +1,18 @@
 import { atom, selector } from "recoil";
 
-export enum AllCategories {
+export enum allCategories {
     "TO_DO" =  "TO_DO",
     "DOING" = "DOING" ,
     "DONE" = "DONE",
 }
 
 // enum + "" 타입 확장
-export type categotyType = AllCategories | "" | "newCategory";
+export type categotyType = allCategories | "" | "newCategory";
 
 export interface IToDo {
     text : string;
     id : number;
-    category : AllCategories;
+    category : allCategories;
 }
 
 export const categoryState = atom<categotyType>({

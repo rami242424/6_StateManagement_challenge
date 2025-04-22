@@ -1,13 +1,15 @@
 import { useRecoilState, useRecoilValue  } from "recoil";
-import { AllCategories, categoryState, toDoSelector } from "../atoms";
+import { allCategories, categoryState, toDoSelector } from "../atoms";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 import { useState } from "react";
 
 function ToDoList(){
-    const [totalCustomCats, setTotalCustomCats] = useState<string[]>([]); // 유저가 추가한 카테고리 목록
+    const [NewAddCats, setNewAddCats] = useState<string[]>([]); // 유저가 추가한 카테고리 목록
     const [isCreatingCat, setIsCreatingCat] = useState(false);  // 새 카테고리 추가 모드
     const [newCatInput, setNewCatInput] = useState(""); // 새 카테고리 입력값
+    const allCats = [...Object.values(allCategories), ...NewAddCats];
+
 
     const todoDoingDone = useRecoilValue(toDoSelector); // 현재 카테고리에 해당하는 ToDo 목록
     const [cat, setCat] = useRecoilState(categoryState); // 현재 선택된 카테고리
@@ -29,7 +31,7 @@ function ToDoList(){
     const handleAddCat = () => {
         if(newCatInput.trim() === "") return; // 빈칸입력시 작동x
 
-        setTotalCustomCats((prev) => [...prev, newCatInput]);
+        setNewAddCats((prev) => [...prev, newCatInput]);
         setNewCatInput(""); // input 비우기
         //setCat(""); // select박스 초기값(카테고리를 선택하세요)로 리셋
         //setIsCreatingCat(false);
@@ -44,12 +46,12 @@ function ToDoList(){
             <select value={cat} onInput={onInput}>
                 <option value="" disabled>카테고리를 선택하세요.</option>
                 <option value="newCategory">+ Add New Category</option>
-                <option value={AllCategories.TO_DO}>TO DO</option>
-                <option value={AllCategories.DOING}>DOING</option>
-                <option value={AllCategories.DONE}>DONE</option>
+                <option value={allCategories.TO_DO}>TO DO</option>
+                <option value={allCategories.DOING}>DOING</option>
+                <option value={allCategories.DONE}>DONE</option>
 
                 {
-                    totalCustomCats.map((cat) => (
+                    NewAddCats.map((cat) => (
                         <option key={cat} value={cat}>{cat}</option>
                     ))
                 }
@@ -79,8 +81,8 @@ function ToDoList(){
                     <ul>
                         {
                             [
-                                ...Object.values(AllCategories),
-                                ...totalCustomCats
+                                ...Object.values(allCategories),
+                                ...NewAddCats
                             ].map((cat) => (
                                 <li key={cat} value={cat}>{cat}</li>
                             ))
@@ -92,7 +94,16 @@ function ToDoList(){
 
 
             <CreateToDo />
-            {todoDoingDone?.map((atodoDoingDone) => <ToDo key={atodoDoingDone.id} {...atodoDoingDone} />)}
+            {todoDoingDone?.map((atodoDoingDone) => 
+            (
+                <ToDo 
+                    key={atodoDoingDone.id} 
+                    {...atodoDoingDone}
+                    allCategories={allCats} // ✅ 전체 카테고리를 ToDo에 전달
+                />
+            )
+            
+            )}
 
         </div>
     );
