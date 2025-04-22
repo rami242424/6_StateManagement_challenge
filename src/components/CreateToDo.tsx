@@ -11,9 +11,13 @@ function CreateToDo(){
     const setToDos = useSetRecoilState(toDoState);
     const curCat = useRecoilValue(categoryState);
 
+    // input이 빈칸이거나, necategory로 되어있을때
+    if(curCat === "newCategory" || curCat === "") {
+        return null;
+    }
+
 
     const handleValid = ({toDo}:IForm) => {
-        if( curCat === "") return ; // 카테고리 선택x, 등록x
 
         setToDos((oldToDos) => [
             { 

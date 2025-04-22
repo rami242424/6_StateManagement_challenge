@@ -7,7 +7,7 @@ export enum AllCategories {
 }
 
 // enum + "" 타입 확장
-export type categotyType = AllCategories | "";
+export type categotyType = AllCategories | "" | "newCategory";
 
 export interface IToDo {
     text : string;
