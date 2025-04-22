@@ -31,6 +31,9 @@
     "typescript": "^5.8.3",
     "web-vitals": "^2.1.4"
   },
+
+  "homepage": "https://rami242424.github.io/6_StateManagement_challenge",
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

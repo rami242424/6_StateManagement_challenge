@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { categoryState, toDoState } from "../atoms";
+import { AllCategories, categoryState, toDoState } from "../atoms";
 
 interface IForm {
     toDo : string;
@@ -13,8 +13,14 @@ function CreateToDo(){
 
 
     const handleValid = ({toDo}:IForm) => {
-        setToDos(oldToDos => [
-            { text: toDo, id: Date.now(), category: curCat },
+        if( curCat === "") return ; // 카테고리 선택x, 등록x
+
+        setToDos((oldToDos) => [
+            { 
+                text: toDo, 
+                id: Date.now(), 
+                category: curCat as AllCategories,
+            },
             ...oldToDos
         ]);
         setValue("toDo", "");

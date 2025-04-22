@@ -15,6 +15,8 @@ function ToDoList(){
             <h1>My To Do List</h1>
             <hr/>
             <select value={cat} onInput={onInput}>
+                <option value="" disabled>카테고리를 선택하세요.</option>
+                <option>+ Add New Category</option>
                 <option value={AllCategories.TO_DO}>TO DO</option>
                 <option value={AllCategories.DOING}>DOING</option>
                 <option value={AllCategories.DONE}>DONE</option>

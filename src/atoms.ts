@@ -3,8 +3,11 @@ import { atom, selector } from "recoil";
 export enum AllCategories {
     "TO_DO" =  "TO_DO",
     "DOING" = "DOING" ,
-    "DONE" = "DONE"
+    "DONE" = "DONE",
 }
+
+// enum + "" 타입 확장
+export type categotyType = AllCategories | "";
 
 export interface IToDo {
     text : string;
@@ -12,9 +15,9 @@ export interface IToDo {
     category : AllCategories;
 }
 
-export const categoryState = atom<AllCategories>({
+export const categoryState = atom<categotyType>({
     key: "category",
-    default: AllCategories.TO_DO,
+    default: "",
 })
 
 export const toDoState = atom<IToDo[]>({
@@ -27,6 +30,7 @@ export const toDoSelector = selector({
     get: ({get}) => {
         const toDoss = get(toDoState);
         const catss = get(categoryState);
+        if (catss === "") return []; // 카테고리 선택 x , 빈배열 반환환
         return toDoss.filter((list) => list.category === catss);
     }
 })
