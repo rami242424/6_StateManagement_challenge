@@ -18,22 +18,21 @@
     "apexcharts": "^3.29.0",
     "gh-pages": "^6.3.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
     "react-apexcharts": "^1.3.9",
+    "react-dom": "18.2.0",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.55.0",
     "react-query": "^3.27.0",
     "react-router-dom": "^5.3.4",
     "react-scripts": "^5.0.1",
     "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
     "styled-components": "^6.1.17",
     "styled-reset": "^4.3.4",
     "typescript": "^5.8.3",
     "web-vitals": "^2.1.4"
   },
-
   "homepage": "https://rami242424.github.io/6_StateManagement_challenge",
-
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

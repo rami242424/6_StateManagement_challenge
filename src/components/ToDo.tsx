@@ -10,6 +10,7 @@ interface IToDoProps extends IToDo {
 function ToDo({ text, category, id, allCategories } : IToDoProps){
     const setToDos = useSetRecoilState(toDoState);
 
+    // 카테고리 이동
     const onClick = (event:React.MouseEvent<HTMLButtonElement>) => {
         const { currentTarget : {name}} = event;
         setToDos((oldToDos) => {
@@ -22,6 +23,15 @@ function ToDo({ text, category, id, allCategories } : IToDoProps){
             ];
         })
     }
+
+    // 할 일 개별 삭제 기능
+    const onDelete = () => {
+        setToDos((oldToDos) => oldToDos.filter((todo) => todo.id !== id));
+    }
+
+
+
+
     return (
         <li>
             <span>{text}</span>
@@ -30,6 +40,10 @@ function ToDo({ text, category, id, allCategories } : IToDoProps){
             { category !== allCategories.TO_DO && <button name={allCategories.TO_DO} onClick={onClick}>TO DO</button>}
             { category !== allCategories.DOING && <button name={allCategories.DOING} onClick={onClick}>DOING</button>}
             { category !== allCategories.DONE && <button name={allCategories.DONE} onClick={onClick}>DONE</button>} */}
+
+
+            {/* 목록 삭제버튼 */}
+            <button onClick={onDelete}>❌</button>
 
             {allCategories
                 .filter((cat)=> cat !== category)

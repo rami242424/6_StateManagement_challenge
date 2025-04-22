@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue  } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { allCategories, categoryState, toDoSelector } from "../atoms";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
@@ -39,7 +39,7 @@ function ToDoList(){
 
     // 카테고리 Delete 
     const handleDeleteCat = (catToDelete:string) => {
-        setNewAddCats((prev) => prev.filter((cat) => cat !== catToDelete));
+        setNewAddCats((prev) => prev.filter((cat) => cat !== catToDelete)); // 유저가 만든 카테고리 삭제
     }
 
 
