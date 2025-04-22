@@ -8,7 +8,7 @@ function ToDoList(){
     const [NewAddCats, setNewAddCats] = useState<string[]>([]); // 유저가 추가한 카테고리 목록
     const [isCreatingCat, setIsCreatingCat] = useState(false);  // 새 카테고리 추가 모드
     const [newCatInput, setNewCatInput] = useState(""); // 새 카테고리 입력값
-    const allCats = [...Object.values(allCategories), ...NewAddCats];
+    const allCats = [...Object.values(allCategories), ...NewAddCats]; // 기존 카테+새 카테
 
 
     const todoDoingDone = useRecoilValue(toDoSelector); // 현재 카테고리에 해당하는 ToDo 목록
@@ -37,6 +37,10 @@ function ToDoList(){
         //setIsCreatingCat(false);
     }
 
+    // 카테고리 Delete 
+    const handleDeleteCat = (catToDelete:string) => {
+        setNewAddCats((prev) => prev.filter((cat) => cat !== catToDelete));
+    }
 
 
     return (
@@ -59,6 +63,7 @@ function ToDoList(){
             </select>
 
 
+            {/* 추가하고 보여지는 부분 */}
             {isCreatingCat && (
                 <div>
                     <form
@@ -84,7 +89,12 @@ function ToDoList(){
                                 ...Object.values(allCategories),
                                 ...NewAddCats
                             ].map((cat) => (
-                                <li key={cat} value={cat}>{cat}</li>
+                                <li key={cat}>
+                                    {cat}
+                                    {NewAddCats.includes(cat) && (
+                                        <button onClick={() => handleDeleteCat(cat)}>❌</button>
+                                    )}
+                                </li>
                             ))
                         }
                     </ul>
